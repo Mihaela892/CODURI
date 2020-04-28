@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:XamarinFormsApp.ViewModels" xmlns:triggers="clr-namespace:XamarinFormsApp"
+             mc:Ignorable="d"
+             x:Class="XamarinFormsApp.MainPage"
+             x:Name="MyMainPage">
+    
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+      <ResourceDictionary>
+        <DataTemplate x:Key="ListaPersoaneTemplate">
+                <ViewCell IsEnabled="false"
+                          >
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Column="0"
+                           TextColor="DarkBlue"
+                           Text="Ma-sa">
+                        
+                          </Label>
+
+                        <Label Grid.Column="1"
+                           TextColor="DarkBlue"
+                           Text="Tac-so">
+                        
+                            
+                        </Label>
+
+                        <Label Grid.Column="2"
+                               TextColor="DarkBlue"
+                               Text="Bla">
+                            
+                        </Label>
+                    </Grid>
+                </ViewCell>
+        </DataTemplate>
+      </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout>
+
+
+        <Frame x:Name="FrameWithAListViewAndAButton"
+               IsVisible="false"
+               IsClippedToBounds="True"
+               CornerRadius="25"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               WidthRequest="170"
+               HeightRequest="370"
+               BorderColor="Silver"
+               HasShadow="True"
+               >
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                
+            <ListView 
+                      Grid.Row="0"
+                      WidthRequest="170"
+                      ItemsSource="{Binding ListaPersoane}"
+                      BackgroundColor="azure"
+                      SeparatorVisibility="None"
+                      ItemTemplate="{StaticResource ListaPersoaneTemplate}"
+                      HorizontalOptions="StartAndExpand"
+                      
+                >
+                
+            </ListView>
+
+            <Button Grid.Row="1"
+                    Text="Ok"
+                    TextColor="CadetBlue"
+                    BackgroundColor="White"
+                    WidthRequest="55"
+                    HeightRequest="45"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    >
+                
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <triggers:TriggerActionAnimationHide
+                                      Target="FrameWithAListViewAndAButton"/>
+
+                        </EventTrigger>
+                    </Button.Triggers>
+                
+            </Button>
+            </Grid>
+        </Frame>
+        
+        
+        <Button Text="PressMe"
+                BackgroundColor="White"
+                BorderColor="Azure"
+                WidthRequest="90"
+                HeightRequest="50"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Font="Medium"
+                TextColor="Black"
+                >
+
+            <Button.Triggers>
+                <EventTrigger Event="Clicked">
+                    
+                    <triggers:TriggerActionAnimation
+                              Target="FrameWithAListViewAndAButton"
+                        />
+                </EventTrigger>
+            </Button.Triggers>
+
+        </Button>
+        
+    </StackLayout>
+
+</ContentPage>
