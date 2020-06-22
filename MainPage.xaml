@@ -3,15 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:local="clr-namespace:XamarinFormsApp.ViewModels" xmlns:triggers="clr-namespace:XamarinFormsApp"
+             xmlns:local="clr-namespace:XamarinFormsApp.ViewModels" 
+             xmlns:triggers="clr-namespace:XamarinFormsApp.Triggers"
              mc:Ignorable="d"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:ff="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:Tapped="clr-namespace:XamarinFormsApp.Triggers"
              x:Class="XamarinFormsApp.MainPage"
              x:Name="MyMainPage">
-    
+
+
+
     <ContentPage.BindingContext>
         <local:MainPageViewModel/>
     </ContentPage.BindingContext>
-
 
     <ContentPage.Resources>
       <ResourceDictionary>
@@ -27,20 +32,20 @@
                         
                         <Label Grid.Column="0"
                            TextColor="DarkBlue"
-                           Text="Ma-sa">
+                           Text="123">
                         
                           </Label>
 
                         <Label Grid.Column="1"
                            TextColor="DarkBlue"
-                           Text="Tac-so">
+                           Text="456">
                         
                             
                         </Label>
 
                         <Label Grid.Column="2"
                                TextColor="DarkBlue"
-                               Text="Bla">
+                               Text="789">
                             
                         </Label>
                     </Grid>
@@ -48,84 +53,174 @@
         </DataTemplate>
       </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <StackLayout>
 
+    <StackLayout >
 
-        <Frame x:Name="FrameWithAListViewAndAButton"
-               IsVisible="false"
-               IsClippedToBounds="True"
-               CornerRadius="25"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand"
-               WidthRequest="170"
-               HeightRequest="370"
-               BorderColor="Silver"
-               HasShadow="True"
-               >
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="45"/>
-                </Grid.RowDefinitions>
-                
-            <ListView 
-                      Grid.Row="0"
-                      WidthRequest="170"
-                      ItemsSource="{Binding ListaPersoane}"
-                      BackgroundColor="azure"
-                      SeparatorVisibility="None"
-                      ItemTemplate="{StaticResource ListaPersoaneTemplate}"
-                      HorizontalOptions="StartAndExpand"
-                      
-                >
-                
-            </ListView>
-
-            <Button Grid.Row="1"
-                    Text="Ok"
-                    TextColor="CadetBlue"
-                    BackgroundColor="White"
-                    WidthRequest="55"
-                    HeightRequest="45"
-                    HorizontalOptions="EndAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    >
-                
-                    <Button.Triggers>
-                        <EventTrigger Event="Clicked">
-                            <triggers:TriggerActionAnimationHide
-                                      Target="FrameWithAListViewAndAButton"/>
-
-                        </EventTrigger>
-                    </Button.Triggers>
-                
-            </Button>
-            </Grid>
-        </Frame>
-        
-        
-        <Button Text="PressMe"
+        <Button x:Name="ButonTransfer"
+                HeightRequest="40"
+                WidthRequest="40"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Start"
+                Text="B"
+                TextColor="SeaGreen"
+                FontSize="15"
+                BorderColor="SeaGreen"
                 BackgroundColor="White"
-                BorderColor="Azure"
-                WidthRequest="90"
-                HeightRequest="50"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                Font="Medium"
-                TextColor="Black"
-                >
+                IsVisible="True">
 
             <Button.Triggers>
                 <EventTrigger Event="Clicked">
-                    
-                    <triggers:TriggerActionAnimation
-                              Target="FrameWithAListViewAndAButton"
-                        />
+                    <triggers:TransferFrameAppearing
+                                      Target1="TransferFrame"
+                                      Target2="ButonInchidereTransfer"/>
+
                 </EventTrigger>
             </Button.Triggers>
 
+
         </Button>
+        
+        <Button x:Name="ButonInchidereTransfer"
+                HeightRequest="40"
+                WidthRequest="40"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Start"
+                Text="Z"
+                TextColor="CadetBlue"
+                FontSize="15"
+                BorderColor="SeaGreen"
+                BackgroundColor="White"
+                IsVisible="False">
+
+            <Button.Triggers>
+                <EventTrigger Event="Clicked">
+                    <triggers:TransferFrameDisappearing
+                                      Target1="TransferFrame"
+                                      Target2="ButonTransfer"/>
+
+                </EventTrigger>
+            </Button.Triggers>
+            
+        </Button>
+
+        <Frame x:Name="TransferFrame"
+               WidthRequest="70"
+               HeightRequest="310"
+               HorizontalOptions="EndAndExpand"
+               VerticalOptions="StartAndExpand"
+               
+               IsVisible="false"
+               
+               IsClippedToBounds="True"
+               CornerRadius="10"
+               BackgroundColor="WhiteSmoke"
+               HasShadow="True"
+               >
+            
+            <Grid x:Name="GridButoaneSelectare">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton x:Name="Gallery"
+                             Grid.Row="0"
+                             WidthRequest="45"
+                             HeightRequest="45"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             BackgroundColor="White"
+                             Source="gallery.png"
+                             Aspect="AspectFit"
+                             IsVisible="True"
+                             CornerRadius="15"
+                             >
+
+                    <ImageButton.Triggers>
+
+                        <EventTrigger Event="Clicked">
+                            <triggers:PressButton/>
+                        </EventTrigger>
+
+                    </ImageButton.Triggers>
+
+
+                </ImageButton>
+
+                <ImageButton x:Name="Camera"
+                             Grid.Row="1"
+                             WidthRequest="45"
+                             HeightRequest="45"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             BackgroundColor="White"
+                             Source="camera.png"
+                             Aspect="AspectFit"
+                             IsVisible="True"
+                             CornerRadius="15"
+                             >
+                    <ImageButton.Triggers>
+
+                        <EventTrigger Event="Clicked">
+                            <triggers:PressButton/>
+                        </EventTrigger>
+
+                    </ImageButton.Triggers>
+
+                </ImageButton>
+
+                <ImageButton x:Name="Audio"
+                             Grid.Row="2"
+                             WidthRequest="45"
+                             HeightRequest="45"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             BackgroundColor="White"
+                             Source="audio.png"
+                             Aspect="AspectFit"
+                             IsVisible="True"
+                             CornerRadius="15"
+                             >
+                    <ImageButton.Triggers>
+
+                        <EventTrigger Event="Clicked">
+                            <triggers:PressButton/>
+                        </EventTrigger>
+
+                    </ImageButton.Triggers>
+
+                </ImageButton>
+
+                <ImageButton x:Name="File"
+                             Grid.Row="3"
+                             WidthRequest="45"
+                             HeightRequest="45"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             BackgroundColor="White"
+                             Source="file.png"
+                             Aspect="AspectFit"
+                             IsVisible="True"
+                             CornerRadius="15">
+
+                    <ImageButton.Triggers>
+
+                        <EventTrigger Event="Clicked">
+                            <triggers:PressButton/>
+                        </EventTrigger>
+
+                    </ImageButton.Triggers>
+
+                </ImageButton>
+
+            </Grid>
+
+        </Frame>
+
+     
+     
         
     </StackLayout>
 
