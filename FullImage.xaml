@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:MultiMediaPickerSample.ViewModels" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MultiMediaPickerSample.FullImage">
+    
+    <ContentPage.BindingContext>
+        <vm:FullImageViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <DataTemplate x:Key="PictureListTemplate">
+            <ViewCell>
+                
+                <Image Source="{Binding PreviewPath}"
+                       HorizontalOptions="FillAndExpand">                    
+                    
+                </Image>
+                
+            </ViewCell>
+            
+        </DataTemplate>
+        
+        
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ImagesListView"
+                      ItemsSource="{Binding Media1}"
+                      ItemTemplate="{StaticResource PictureListTemplate}"
+                      RowHeight="290"
+                      SeparatorVisibility="None"
+                      >
+                
+                
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

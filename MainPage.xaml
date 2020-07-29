@@ -1,227 +1,498 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:local="clr-namespace:XamarinFormsApp.ViewModels" 
-             xmlns:triggers="clr-namespace:XamarinFormsApp.Triggers"
-             mc:Ignorable="d"
-             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:ff="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:Tapped="clr-namespace:XamarinFormsApp.Triggers"
-             x:Class="XamarinFormsApp.MainPage"
-             x:Name="MyMainPage">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:MultiMediaPickerSample.ViewModels" 
+             x:Class="MultiMediaPickerSample.MainPage"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:behaviors="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             xmlns:local="clr-namespace:MultiMediaPickerSample"
+             
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    
+    <!--<ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}">          
+            
+        </behaviors:EventToCommandBehavior>
 
+        <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}">
+            
+        </behaviors:EventToCommandBehavior>
 
-
-    <ContentPage.BindingContext>
-        <local:MainPageViewModel/>
-    </ContentPage.BindingContext>
-
+        --><!--<behaviors:EventHandlerBehavior EventName="Appearing">
+            <behaviors:InvokeCommandAction Command="{Binding PageAppearingCommand}" />--><!--
+            
+    </ContentPage.Behaviors>-->
+    
     <ContentPage.Resources>
-      <ResourceDictionary>
-        <DataTemplate x:Key="ListaPersoaneTemplate">
-                <ViewCell IsEnabled="false"
-                          >
-                    <Grid Padding="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="30"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <Label Grid.Column="0"
-                           TextColor="DarkBlue"
-                           Text="123">
-                        
-                          </Label>
-
-                        <Label Grid.Column="1"
-                           TextColor="DarkBlue"
-                           Text="456">
-                        
-                            
-                        </Label>
-
-                        <Label Grid.Column="2"
-                               TextColor="DarkBlue"
-                               Text="789">
-                            
-                        </Label>
-                    </Grid>
-                </ViewCell>
+        <DataTemplate x:Key="DocumentFileFormat">
+            <ViewCell>                
+                
+            </ViewCell>            
+            
         </DataTemplate>
-      </ResourceDictionary>
+
+        <DataTemplate x:Key="FourMediaFileMessageTemplate">
+            <ViewCell> 
+            <Frame HorizontalOptions="EndAndExpand"
+                   IsClippedToBounds="True"
+                   BackgroundColor="CornflowerBlue"
+                   CornerRadius="5"
+                   Margin="1,1,1,1"
+                   Padding="5">
+                <Grid ColumnDefinitions="100*, 100*"
+                      RowDefinitions="100*,100*">
+                       
+                        <forms:CachedImage    Grid.Row="0"
+                                              Grid.Column="0"
+                                              DownsampleToViewSize="true" 
+                                              HeightRequest="110" 
+                                              WidthRequest="110"
+                                              Source="{Binding PreviewPath1}"  
+                                              Aspect="AspectFill">
+
+                        <forms:CachedImage.GestureRecognizers>
+
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                  NumberOfTapsRequired="2">
+
+                            </TapGestureRecognizer>
+
+                        </forms:CachedImage.GestureRecognizers>
+
+                        <forms:CachedImage.Transformations>
+
+                            <!--<fftransformations:BlurredTransformation Radius="240"/>-->
+                            <fftransformations:RoundedTransformation Radius="35"/>
+
+                        </forms:CachedImage.Transformations>
+
+
+                    </forms:CachedImage>
+
+                        <forms:CachedImage    Grid.Row="0"
+                                              Grid.Column="1"
+                                              DownsampleToViewSize="true" 
+                                              HeightRequest="110" 
+                                              WidthRequest="110"
+                                              Source="{Binding PreviewPath2}"  
+                                              Aspect="AspectFill">
+
+                        <forms:CachedImage.GestureRecognizers>
+
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                              NumberOfTapsRequired="2">
+
+                            </TapGestureRecognizer>
+
+                        </forms:CachedImage.GestureRecognizers>
+
+                        <forms:CachedImage.Transformations>
+
+                            <!--<fftransformations:BlurredTransformation Radius="240"/>-->
+                            <fftransformations:RoundedTransformation Radius="35"/>
+
+                        </forms:CachedImage.Transformations>
+
+
+                    </forms:CachedImage>
+                    
+                        <forms:CachedImage    Grid.Row="1"
+                                              Grid.Column="0"
+                                              DownsampleToViewSize="true" 
+                                              HeightRequest="110" 
+                                              WidthRequest="110"
+                                              Source="{Binding PreviewPath3}"  
+                                              Aspect="AspectFill">
+
+                        <forms:CachedImage.GestureRecognizers>
+
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                              NumberOfTapsRequired="2">
+
+                            </TapGestureRecognizer>
+
+                        </forms:CachedImage.GestureRecognizers>
+
+                        <forms:CachedImage.Transformations>
+
+                            <!--<fftransformations:BlurredTransformation Radius="240"/>-->
+                            <fftransformations:RoundedTransformation Radius="35"/>
+
+                        </forms:CachedImage.Transformations>
+
+                            
+                       </forms:CachedImage>
+
+                        <forms:CachedImage    Grid.Row="1"
+                                              Grid.Column="1"
+                                              DownsampleToViewSize="true" 
+                                              HeightRequest="110" 
+                                              WidthRequest="110"
+                                              Source="{Binding PreviewPath4}"  
+                                              Aspect="AspectFill">
+
+                        <forms:CachedImage.GestureRecognizers>
+
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                  NumberOfTapsRequired="2">
+
+                            </TapGestureRecognizer>
+
+                        </forms:CachedImage.GestureRecognizers>
+
+                        <forms:CachedImage.Transformations>
+
+                            <!--<fftransformations:BlurredTransformation Radius="240"/>-->
+                            <fftransformations:RoundedTransformation Radius="35"/>
+
+                        </forms:CachedImage.Transformations>
+                            
+
+                    </forms:CachedImage>
+                        <!--<Frame x:Name="Transparent"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               BackgroundColor="Transparent">-->
+
+                            <Label TextColor="WhiteSmoke"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Text="{Binding NumberOfHiddenPhotos}"
+                                   FontSize="Large">
+                                
+                            </Label>
+
+                        <!--</Frame>-->
+
+                    </Grid>
+                
+            </Frame>
+            </ViewCell>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OneMediaFileMessageTemplate">
+            <ViewCell>
+            <Frame HorizontalOptions="EndAndExpand"
+                   IsClippedToBounds="True"
+                   BackgroundColor="CadetBlue"
+                   CornerRadius="10">
+
+                <forms:CachedImage       
+                                              DownsampleToViewSize="true" 
+                                              HeightRequest="150" 
+                                              WidthRequest="150"
+                                              Source="{Binding Path}"  
+                                              Aspect="AspectFill">
+
+                    <forms:CachedImage.GestureRecognizers>
+
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                              NumberOfTapsRequired="2">
+
+                        </TapGestureRecognizer>
+
+                    </forms:CachedImage.GestureRecognizers>
+
+                    <forms:CachedImage.Transformations>
+
+                        <!--<fftransformations:BlurredTransformation Radius="240"/>-->
+                        <fftransformations:RoundedTransformation Radius="40"/>
+
+                    </forms:CachedImage.Transformations>
+
+
+                </forms:CachedImage>
+            </Frame>
+            </ViewCell>
+        </DataTemplate>
+
+        <local:MediaTemplateSelector x:Key="MediaTemplateSelector"
+                                     
+                OneMediaFileMessageTemplate="{StaticResource OneMediaFileMessageTemplate}"
+                FourMediaFileMessageTemplate="{StaticResource FourMediaFileMessageTemplate}" />
+
+
     </ContentPage.Resources>
+    
+    
+    <ContentPage.Content>
+         <StackLayout Padding="20">
 
-    <StackLayout >
-
-        <Button x:Name="ButonTransfer"
-                HeightRequest="40"
-                WidthRequest="40"
-                HorizontalOptions="EndAndExpand"
-                VerticalOptions="Start"
-                Text="B"
-                TextColor="SeaGreen"
-                FontSize="15"
-                BorderColor="SeaGreen"
-                BackgroundColor="White"
-                IsVisible="True">
-
-            <Button.Triggers>
-                <EventTrigger Event="Clicked">
-                    <triggers:TransferFrameAppearing
-                                      Target1="TransferFrame"
-                                      Target2="ButonInchidereTransfer"/>
-
-                </EventTrigger>
-            </Button.Triggers>
+         <Button TextColor="White" BackgroundColor="Blue" Text="Select images from gallery" Command="{Binding SelectImagesCommand}"/>
+         <Button TextColor="White" BackgroundColor="Blue" Text="Select videos from gallery" Command="{Binding SelectVideosCommand}"/>
 
 
-        </Button>
-        
-        <Button x:Name="ButonInchidereTransfer"
-                HeightRequest="40"
-                WidthRequest="40"
-                HorizontalOptions="EndAndExpand"
-                VerticalOptions="Start"
-                Text="Z"
-                TextColor="CadetBlue"
-                FontSize="15"
-                BorderColor="SeaGreen"
-                BackgroundColor="White"
-                IsVisible="False">
+          <!--Pentru data template document oarecare trimis/primit-->
+             
+         <!--<Frame x:Name="AttachedDocumentFrame"
+                   HorizontalOptions="EndAndExpand"
+                   BackgroundColor="White"
+                   IsClippedToBounds="True"
+                   CornerRadius="5"
+                   WidthRequest="250"
+                   HeightRequest="65"
+                   Padding="7">
+                
+                <Grid x:Name="DocumentGrid"
+                      RowDefinitions="70*, Auto"
+                      ColumnDefinitions="240*"                     
+                      BackgroundColor="White"
+                      IsClippedToBounds="True"
+                      RowSpacing="0">
+                    
+                    <Grid Grid.Row="0"
+                          ColumnDefinitions="30*,175*,35*"
+                          BackgroundColor="White"
+                          >
+                        
+                        
+                        <forms:CachedImage x:Name="DocumentImage"
+                                       Grid.Column="0"  
+                                           
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       Source="Document.png"
+                                       HeightRequest="50">                       
+                        
+                        </forms:CachedImage>
 
-            <Button.Triggers>
-                <EventTrigger Event="Clicked">
-                    <triggers:TransferFrameDisappearing
-                                      Target1="TransferFrame"
-                                      Target2="ButonTransfer"/>
+                        <Label x:Name="TypeLabel"
+                               Grid.Column="0"
+                               Text="DLL"
+                               FontSize="Micro"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="CenterAndExpand"
+                               >
 
-                </EventTrigger>
-            </Button.Triggers>
-            
-        </Button>
+                        </Label>
 
-        <Frame x:Name="TransferFrame"
-               WidthRequest="70"
-               HeightRequest="310"
-               HorizontalOptions="EndAndExpand"
-               VerticalOptions="StartAndExpand"
-               
-               IsVisible="false"
-               
-               IsClippedToBounds="True"
-               CornerRadius="10"
-               BackgroundColor="WhiteSmoke"
-               HasShadow="True"
-               >
-            
-            <Grid x:Name="GridButoaneSelectare">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                </Grid.RowDefinitions>
+                        <Label x:Name="DocumentNameLabel"
+                           Grid.Column="1"
+                               
+                           HorizontalOptions="StartAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Text="DocumentName.DLL"
+                           FontSize="Small">
+                        
+                         </Label>
 
-                <ImageButton x:Name="Gallery"
-                             Grid.Row="0"
-                             WidthRequest="45"
-                             HeightRequest="45"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand"
-                             BackgroundColor="White"
-                             Source="gallery.png"
-                             Aspect="AspectFit"
-                             IsVisible="True"
-                             CornerRadius="15"
-                             >
+                        <forms:CachedImage x:Name="DownloadDocument"
+                                           Grid.Column="2"
+                                           Source="DocDownload"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           HeightRequest="70"
+                                           >
+                            
+                            
+                        </forms:CachedImage>
+                        
+                       </Grid>
+                    
+                    <Grid Grid.Row="1"
+                          ColumnDefinitions="Auto,Auto,Auto"
+                          BackgroundColor="White"
+                          >
+                        
+                        <Label x:Name="FileSizeLabel"
+                               Grid.Column="0"
+                               Text="554KB"
+                               FontSize="Micro"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand">
+                            
+                        </Label>
+                       
 
-                    <ImageButton.Triggers>
+                    
+                        <forms:CachedImage x:Name="Circle"                                           
+                                           Grid.Column="1"
+                                           Source="Circle.png"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="Center"
+                                           HeightRequest="7">
 
-                        <EventTrigger Event="Clicked">
-                            <triggers:PressButton/>
-                        </EventTrigger>
+                        </forms:CachedImage>                       
 
-                    </ImageButton.Triggers>
+                       
+                        <Label x:Name="FileTypeLabel"
+                               Grid.Column="2"
+                               Text="DLL"
+                               FontSize="Micro"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand">
+
+                        </Label>
+                       
+                    </Grid>
+
+                </Grid>
+                
+                
+                
+            </Frame>-->
+
+             
+             <!--Pentru data template 4imagini si 1imagine-->
+            <Grid x:Name="MediaGrid">
+                <ListView x:Name="MediaListView"
+                                ItemsSource="{Binding MediaToBeGrouped}"
+                                ItemTemplate="{StaticResource MediaTemplateSelector}" 
+                                RowHeight="200">
+                          
+                        </ListView>
+                
+                      <!--BindableLayout.ItemsSource="{Binding Media}"
+                      BindableLayout.ItemTemplateSelector="{StaticResource MediaTemplateSelector}"
+                     
+                      HeightRequest="200"
+                      WidthRequest="200">-->
+                   
+                </Grid>
 
 
-                </ImageButton>
+           
+        </StackLayout>
+    </ContentPage.Content>
 
-                <ImageButton x:Name="Camera"
-                             Grid.Row="1"
-                             WidthRequest="45"
-                             HeightRequest="45"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand"
-                             BackgroundColor="White"
-                             Source="camera.png"
-                             Aspect="AspectFit"
-                             IsVisible="True"
-                             CornerRadius="15"
-                             >
-                    <ImageButton.Triggers>
 
-                        <EventTrigger Event="Clicked">
-                            <triggers:PressButton/>
-                        </EventTrigger>
 
-                    </ImageButton.Triggers>
 
-                </ImageButton>
+    <!--<Frame x:Name="Frame"
+                   BackgroundColor="CadetBlue"
+                   IsClippedToBounds="True"
+                   CornerRadius="25"
+                   HorizontalOptions="EndAndExpand"                                 
+                   >-->
 
-                <ImageButton x:Name="Audio"
-                             Grid.Row="2"
-                             WidthRequest="45"
-                             HeightRequest="45"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand"
-                             BackgroundColor="White"
-                             Source="audio.png"
-                             Aspect="AspectFit"
-                             IsVisible="True"
-                             CornerRadius="15"
-                             >
-                    <ImageButton.Triggers>
 
-                        <EventTrigger Event="Clicked">
-                            <triggers:PressButton/>
-                        </EventTrigger>
+        <!--<FlexLayout x:Name="MediaLayout"
+                            BindableLayout.ItemsSource="{Binding Media}"
+                            Direction="RowReverse"                            
+                            BackgroundColor="Green"
+                            HorizontalOptions="EndAndExpand"                                                    
+                            Wrap="Wrap">
 
-                    </ImageButton.Triggers>
+            <ActivityIndicator x:Name="UploadCompleteIndicator"
+                                        IsRunning="True"
+                                        IsVisible="True"
+                                        HorizontalOptions="StartAndExpand"
+                                        >
 
-                </ImageButton>
+            </ActivityIndicator>
 
-                <ImageButton x:Name="File"
-                             Grid.Row="3"
-                             WidthRequest="45"
-                             HeightRequest="45"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand"
-                             BackgroundColor="White"
-                             Source="file.png"
-                             Aspect="AspectFit"
-                             IsVisible="True"
-                             CornerRadius="15">
 
-                    <ImageButton.Triggers>
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
 
-                        <EventTrigger Event="Clicked">
-                            <triggers:PressButton/>
-                        </EventTrigger>
+                    <Grid>
 
-                    </ImageButton.Triggers>
+                        <forms:CachedImage          DownsampleToViewSize="true" 
+                                                            HeightRequest="200" 
+                                                            WidthRequest="200"
+                                                            Source="{Binding Path}"  
+                                                            Aspect="AspectFill">
 
-                </ImageButton>
+                            <forms:CachedImage.GestureRecognizers>
 
-            </Grid>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                              NumberOfTapsRequired="2">
 
-        </Frame>
+                                </TapGestureRecognizer>
 
-     
-     
-        
-    </StackLayout>
+                            </forms:CachedImage.GestureRecognizers>
+
+                            <forms:CachedImage.Transformations>
+
+                                -->
+    
+    
+    <!--<fftransformations:BlurredTransformation Radius="240"/>--><!--
+                                <fftransformations:RoundedTransformation Radius="25"/>
+
+                            </forms:CachedImage.Transformations>
+
+
+
+                        </forms:CachedImage>
+
+                    </Grid>
+                </DataTemplate>
+
+            </BindableLayout.ItemTemplate>
+
+
+
+        </FlexLayout>-->
+
+
+
+
+
+
+
+        <!--<flv:FlowListView FlowColumnCount="3" 
+                                  x:Name="listItems" 
+                                  FlowItemsSource="{Binding Media}"
+                        SeparatorVisibility="Default"
+                        HasUnevenRows="false" RowHeight="100"
+                                  BackgroundColor="BlueViolet">
+
+        <flv:FlowListView.FlowColumnTemplate>
+            <DataTemplate >
+
+                <Grid>
+                    <forms:CachedImage DownsampleToViewSize="true" 
+                                                            HeightRequest="100"  
+                                                            Source="{Binding PreviewPath}"  
+                                                            Aspect="AspectFill" 
+                                                            HorizontalOptions="FillAndExpand">
+
+                        <forms:CachedImage.GestureRecognizers>
+
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                              NumberOfTapsRequired="2">
+
+                            </TapGestureRecognizer>
+                        </forms:CachedImage.GestureRecognizers>
+
+                        <forms:CachedImage.Transformations>
+
+                            <fftransformations:BlurredTransformation Radius="240"/>
+
+
+                        </forms:CachedImage.Transformations>
+
+
+
+                    </forms:CachedImage>
+
+                    <Image Source="play" 
+                                      IsVisible="False" 
+                                      HorizontalOptions="End" 
+                                      VerticalOptions="End">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image" 
+                                                     Binding="{Binding Type}" 
+                                                     Value="Video">
+                                <Setter Property="IsVisible" 
+                                                     Value="True" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </DataTemplate>
+        </flv:FlowListView.FlowColumnTemplate>
+    </flv:FlowListView>-->
+
+
+
 
 </ContentPage>
